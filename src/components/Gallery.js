@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Gallery = ({ images }) => {
   return (
-    <div className="col-12 p-5 row">
+    <div className="col-12 p-2 row">
       {images.map((image) => (
         <Image key={image.id} image={image} />
       ))}
@@ -12,6 +12,8 @@ const Gallery = ({ images }) => {
   );
 };
 
-Gallery.propTypes = {};
+Gallery.propTypes = {
+  images: PropTypes.array.isRequired,
+};
 
 export default Gallery;

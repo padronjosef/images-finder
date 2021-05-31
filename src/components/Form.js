@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Error from "./Error";
 
 const Form = ({ setSearch }) => {
@@ -41,6 +42,10 @@ const Form = ({ setSearch }) => {
       {error ? <Error message="Write down a tern to search" /> : null}
     </form>
   );
+};
+
+Form.propTypes = {
+  setSearch: PropTypes.func.isRequired,
 };
 
 export default Form;

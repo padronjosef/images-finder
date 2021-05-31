@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Form from "./components/Form";
 import Gallery from "./components/Gallery";
+import Pagination from "./components/Pagination";
 
 const App = () => {
   // app state
@@ -15,7 +16,7 @@ const App = () => {
     const consultAPI = async () => {
       const perPage = 30;
       const API_KEY = "21854148-19447da7a8aff2d0360a21421";
-      const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${search}&per_page=${perPage}`;
+      const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${search}&per_page=${perPage}&page=${actualPage}`;
 
       const response = await fetch(URL);
       const result = await response.json();
@@ -27,29 +28,26 @@ const App = () => {
       setTotalPage(totalPagesToCalculate);
     };
     consultAPI();
-  }, [search]);
 
-  const previewPage = () => {
-    if (actualPage <= 1) return
-    setActualPage(actualPage -1)
-  }
-
-  const nextPage = () => {
-    if (actualPage >= totalPages) return
-    setActualPage(actualPage +1)
-  }
+    // move to the top when click on next/previo buttons
+    const jumbotron = document.querySelector(".jumbotron");
+    jumbotron.scrollIntoView({ behavior: "smooth" });
+  }, [search, actualPage]);
 
   return (
     <div className="container">
       <div className="jumbotron">
         <p className="lead text-center">Images Finder</p>
-
         <Form setSearch={setSearch} />
       </div>
       <div className="row justify-content-center">
         <Gallery images={images} />
-        <button type="button" onClick={previewPage} className="bbtn btn-info mr-1">&laquo; Preview</button>
-        <button type="button" onClick={nextPage} className="bbtn btn-info mr-1">&raquo; next</button>
+        <Pagination
+          search={search}
+          actualPage={actualPage}
+          setActualPage={setActualPage}
+          totalPages={totalPages}
+        />
       </div>
     </div>
   );
