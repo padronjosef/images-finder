@@ -37,7 +37,7 @@ const App = () => {
   return (
     <div className="container">
       <div className="jumbotron">
-        <p className="lead text-center">Images Finder</p>
+        <h2 className="text-center text-uppercase mb-4">Images Finder</h2>
         <Form setSearch={setSearch} />
       </div>
       <div className="row justify-content-center">
